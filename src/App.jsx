@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -13,14 +13,14 @@ function App() {
     fetch(url)
       .then(res => res.json())
       .then(data => setProducts(data));
-  }, []);
+  });
 
   // create data
   const addProduct = () => {
   if (!name || !price) return;
-    const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
+  
+ // const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;  -- only for store data in memory
   const product = {
-    id,
     name,
     price: Number(price)
   };
@@ -47,11 +47,10 @@ function App() {
       .then(res => res.json())
       .then(data => setProducts(data));
   };
-
+  
   return (
     <div className="container">
       <h2 className="title">Product CRUD</h2>
-
       <div className="form">
         <input
           type="text"
@@ -69,30 +68,23 @@ function App() {
 
         <button onClick={addProduct}>Add Product</button>
       </div>
-
       <ul className="list">
         {products.map(p => (
           <li key={p.id} className="list-item">
             <span>{p.name} - Rs.{p.price}</span>
             <button
               className="delete-btn"
-              onClick={() => deleteProduct(p.id)}
-            >
+              onClick={() => deleteProduct(p.id)}>
               Delete
-            </button>
+            </button> 
           </li>
         ))}
       </ul>
+    
     </div>
   );
 }
 
 export default App;
-/*
--> Implement controlled forms for Create and Update operations | Done
--> Add loading indicators during API calls | Done
--> Handle API and UI errors using proper error handling techniques | Done
--> Create a mini CRUD/First in memory using React  | Done
--> Test all CRUD operations and routing flow
--> Conection with Db - crud | WIP 
-*/
+
+
